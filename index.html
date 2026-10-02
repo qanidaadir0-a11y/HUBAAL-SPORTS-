@@ -1,1 +1,975 @@
+<!DOCTYPE html>
+<html lang="so" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HUBAAL EXCHANGE - Premium Sports Betting Exchange</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#070A10',
+                        cardDark: 'rgba(19, 26, 38, 0.7)',
+                        cardBorder: '#1F293D',
+                        brandBlue: '#2563EB',
+                        brandGreen: '#10B981',
+                        brandOrange: '#F97316',
+                    },
+                    boxShadow: {
+                        'glow-blue': '0 0 25px -5px rgba(37, 99, 235, 0.5)',
+                        'glow-orange': '0 0 25px -5px rgba(249, 115, 22, 0.5)',
+                        'glow-green': '0 0 25px -5px rgba(16, 185, 129, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #070A10;
+            color: #FFFFFF;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            overflow-x: hidden;
+        }
+        .page {
+            display: none;
+            padding-bottom: 95px;
+            animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Dynamic Glassmorphism Card */
+        .glass-card {
+            background: rgba(19, 26, 38, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-nav {
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        /* Button Shining Effect */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                60deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transform: rotate(30deg);
+            animation: shine 3.5s infinite;
+        }
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            20% { transform: translateX(100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+        /* Logo Pulse */
+        .logo-glow {
+            animation: logoPulse 2.5s infinite alternate;
+        }
+        @keyframes logoPulse {
+            0% { filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.4)); }
+            50% { filter: drop-shadow(0 0 20px rgba(249, 115, 22, 0.6)); }
+            100% { filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.5)); }
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #070A10; }
+        ::-webkit-scrollbar-thumb { background: #1F293D; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-brandDark text-white antialiased">
 
+    <!-- APP CONTAINER -->
+    <div id="app" class="max-w-md mx-auto min-h-screen flex flex-col relative bg-brandDark border-x border-cardBorder/30 shadow-2xl">
+
+        <!-- 1. SPLASH SCREEN -->
+        <div id="splash-screen" class="fixed inset-0 z-50 bg-brandDark flex flex-col items-center justify-between p-8 text-center max-w-md mx-auto">
+            <div class="my-auto flex flex-col items-center">
+                <div class="w-36 h-36 mb-6 flex items-center justify-center relative glass-card rounded-3xl p-3 border border-brandBlue/30 logo-glow">
+                    <svg viewBox="0 0 300 300" class="w-full h-full">
+                        <polygon points="150,15 265,80 265,220 150,285 35,220 35,80" fill="none" stroke="#2563EB" stroke-width="18" stroke-linejoin="round"/>
+                        <path d="M 75 120 A 80 80 0 0 1 225 120" fill="none" stroke="#2563EB" stroke-width="16" stroke-linecap="round"/>
+                        <path d="M 75 180 A 80 80 0 0 0 225 180" fill="none" stroke="#F97316" stroke-width="16" stroke-linecap="round"/>
+                        <text x="50%" y="54%" text-anchor="middle" font-family="Arial Black, sans-serif" font-weight="900" font-size="62" dominant-baseline="middle">
+                            <tspan fill="#F97316">H</tspan><tspan fill="#10B981">B</tspan><tspan fill="#2563EB">S</tspan>
+                        </text>
+                    </svg>
+                </div>
+
+                <h1 class="text-3xl font-black tracking-wider text-white mb-1">
+                    HUBAAL <span class="text-brandOrange">EXCHANGE</span>
+                </h1>
+                <p class="text-brandGreen font-bold text-xs tracking-widest uppercase">Degdeg • Aamin • Xaqiijin Buuxda</p>
+            </div>
+            
+            <div class="w-full pb-6 flex flex-col items-center">
+                <div class="glass-card border border-brandOrange/40 px-6 py-2.5 rounded-2xl mb-6 shadow-glow-orange">
+                    <span class="text-xs text-gray-400">PROMO CODE: </span>
+                    <span class="text-sm font-black text-brandOrange tracking-widest">HUBAAL1</span>
+                </div>
+                <div class="w-8 h-8 border-4 border-brandOrange border-t-transparent rounded-full animate-spin"></div>
+            </div>
+        </div>
+
+        <!-- TOAST NOTIFICATION -->
+        <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-brandBlue text-white px-5 py-3 rounded-2xl shadow-glow-blue text-xs font-semibold hidden transition-all duration-300 flex items-center gap-2 border border-white/20">
+            <i class="fa-solid fa-circle-check text-brandGreen text-base"></i>
+            <span id="toast-message">Fariin</span>
+        </div>
+
+        <!-- PAGE CONTENT -->
+        <main class="flex-1">
+
+            <!-- 2. HOME PAGE -->
+            <section id="page-home" class="page">
+                <header class="p-5 border-b border-cardBorder/40 flex items-center justify-between sticky top-0 glass-nav z-10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-xl glass-card border border-cardBorder logo-glow">
+                            <svg viewBox="0 0 300 300" class="w-8 h-8">
+                                <polygon points="150,15 265,80 265,220 150,285 35,220 35,80" fill="none" stroke="#2563EB" stroke-width="22"/>
+                                <text x="50%" y="55%" text-anchor="middle" font-family="Arial Black" font-weight="900" font-size="80" dominant-baseline="middle">
+                                    <tspan fill="#F97316">H</tspan><tspan fill="#10B981">B</tspan><tspan fill="#2563EB">S</tspan>
+                                </text>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-black tracking-wide text-white">HUBAAL <span class="text-brandOrange">EXCHANGE</span></h2>
+                            <p class="text-[11px] text-gray-400">Adeeg degdeg ah 24/7</p>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="p-5 space-y-5">
+                    <!-- Dynamic Banner -->
+                    <div class="glass-card border border-cardBorder p-5 rounded-3xl relative overflow-hidden">
+                        <div class="absolute -right-8 -bottom-8 w-28 h-28 bg-brandBlue/20 rounded-full blur-2xl"></div>
+                        <div class="absolute -left-8 -top-8 w-28 h-28 bg-brandOrange/20 rounded-full blur-2xl"></div>
+                        <p class="text-xs text-gray-300 leading-relaxed mb-4 relative z-10">
+                            Ku soo dhowaad HUBAAL EXCHANGE. Sameey Deposit ama Withdrawal si fudud hal taabo ku dir WhatsApp!
+                        </p>
+                        <div class="flex items-center justify-between bg-brandDark/80 p-3.5 rounded-2xl border border-cardBorder relative z-10">
+                            <div>
+                                <span class="text-[10px] text-gray-400 block uppercase font-bold">PROMO CODE</span>
+                                <span class="text-sm font-black text-brandOrange tracking-widest">HUBAAL1</span>
+                            </div>
+                            <button onclick="copyToClipboard('HUBAAL1', 'Promo Code')" class="bg-brandOrange/20 text-brandOrange hover:bg-brandOrange hover:text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95">
+                                <i class="fa-regular fa-copy"></i> COPY
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Main Action Buttons -->
+                    <div class="grid grid-cols-1 gap-4">
+                        <button onclick="navigateTo('deposit')" class="btn-shine bg-gradient-to-r from-blue-700 to-brandBlue text-white p-4.5 rounded-2xl font-bold flex items-center justify-between shadow-glow-blue transition-all active:scale-[0.98]">
+                            <div class="flex items-center gap-3.5">
+                                <div class="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center">
+                                    <i class="fa-solid fa-arrow-down text-xl text-white"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-base font-extrabold tracking-wide">DEPOSIT</div>
+                                    <div class="text-[11px] font-normal text-blue-100">Lacag ku shubo account-kaaga</div>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-sm text-blue-200"></i>
+                        </button>
+
+                        <button onclick="navigateTo('withdrawal')" class="btn-shine bg-gradient-to-r from-orange-600 to-brandOrange text-white p-4.5 rounded-2xl font-bold flex items-center justify-between shadow-glow-orange transition-all active:scale-[0.98]">
+                            <div class="flex items-center gap-3.5">
+                                <div class="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center">
+                                    <i class="fa-solid fa-arrow-up text-xl text-white"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-base font-extrabold tracking-wide">WITHDRAWAL</div>
+                                    <div class="text-[11px] font-normal text-orange-100">Lacag ka kala bax 1xBet</div>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-sm text-orange-200"></i>
+                        </button>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="grid grid-cols-3 gap-3">
+                        <button onclick="navigateTo('history')" class="glass-card border border-cardBorder p-3.5 rounded-2xl flex flex-col items-center justify-center text-center gap-1.5 hover:border-brandBlue transition-all active:scale-95">
+                            <i class="fa-solid fa-clock-rotate-left text-brandBlue text-xl"></i>
+                            <span class="text-xs font-semibold">History</span>
+                        </button>
+                        <a href="https://t.me/Hubaalsportts" target="_blank" class="glass-card border border-cardBorder p-3.5 rounded-2xl flex flex-col items-center justify-center text-center gap-1.5 hover:border-sky-400 transition-all active:scale-95">
+                            <i class="fa-brands fa-telegram text-sky-400 text-xl"></i>
+                            <span class="text-xs font-semibold">Telegram</span>
+                        </a>
+                        <button onclick="openWhatsAppSupport()" class="glass-card border border-cardBorder p-3.5 rounded-2xl flex flex-col items-center justify-center text-center gap-1.5 hover:border-brandGreen transition-all active:scale-95">
+                            <i class="fa-brands fa-whatsapp text-brandGreen text-xl"></i>
+                            <span class="text-xs font-semibold">WhatsApp</span>
+                        </button>
+                    </div>
+
+                    <!-- BANNER TELEGAM CHANNEL -->
+                    <a href="https://t.me/Hubaalsportts" target="_blank" class="glass-card border border-sky-500/40 p-4 rounded-2xl flex items-center justify-between bg-gradient-to-r from-sky-950/40 to-transparent hover:border-sky-400 transition-all block active:scale-98">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-sky-500/20 flex items-center justify-center text-sky-400 text-xl font-bold">
+                                <i class="fa-brands fa-telegram"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-black text-white">KU SOO BIIR TELEGRAM-KA!</div>
+                                <div class="text-[11px] text-sky-300">Hel Tip-yada ciyaaraha & Bonooyinka 24/7</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-sky-400 bg-sky-500/10 px-2.5 py-1 rounded-lg border border-sky-500/30">Join <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                    </a>
+
+                    <!-- SECTION: WAXA AAD KA FAA'IIDAYSO PROMO CODE-KA IYO TELEGRAM-KA -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-black text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-gift text-brandOrange"></i> FAA'IIDOOYINKA UGU WAAWEYN
+                        </h3>
+
+                        <div class="glass-card border border-cardBorder p-4 rounded-2xl space-y-2">
+                            <div class="flex items-center gap-2 text-brandOrange font-bold text-xs uppercase">
+                                <i class="fa-solid fa-ticket"></i> Maxaa ii taraya Promo Code: HUBAAL1?
+                            </div>
+                            <ul class="text-xs text-gray-300 space-y-1.5 list-disc list-inside">
+                                /><span class="font-bold text-brandGreen">100% Bonus</span> markaad samayso deposit-kaaga ugu horeeya.</span>
+                                />Ku shubasho & Kala bax <span class="font-bold text-white">VIP degdeg ah</span>.</span>
+                                />Ka helidda Bonooyin gaar ah maalmaha Jimcaha iyo Ciidaha.</span>
+                            </ul>
+                        </div>
+
+                        <div class="glass-card border border-cardBorder p-4 rounded-2xl space-y-2">
+                            <div class="flex items-center gap-2 text-sky-400 font-bold text-xs uppercase">
+                                <i class="fa-brands fa-telegram"></i> Maxaad ka faa'iiddaa Telegram Channel-ka?
+                            </div>
+                            <ul class="text-xs text-gray-300 space-y-1.5 list-disc list-inside">
+                                />Predictions & Ticket-ka ciyaaraha oo <span class="font-bold text-sky-300">Free ah</span>.</span>
+                                />La socodka qiimaha sarifka & Ogeysiisyada ugu dambeeya.</span>
+                                />Abaalmarino & Promo-codes lacag la'aan ah oo maalinla ah.</span>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- ACCORDION FAQ (SU'AALAHA IGU BADAN) -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-black text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-circle-question text-brandBlue"></i> SU'AALAHA IGU BADAN (FAQ)
+                        </h3>
+
+                        <div class="space-y-2">
+                            <!-- FAQ 1 -->
+                            <details class="glass-card border border-cardBorder rounded-2xl p-3.5 group transition-all">
+                                <summary class="flex items-center justify-between font-bold text-xs cursor-pointer text-white list-none">
+                                    <span><i class="fa-solid fa-clock text-brandBlue mr-2"></i> Maabka shaqada HUBAAL EXCHANGE waa sidee?</span>
+                                    <i class="fa-solid fa-chevron-down text-gray-500 group-open:rotate-180 transition-transform text-xs"></i>
+                                </summary>
+                                <p class="text-xs text-gray-400 mt-2.5 pt-2 border-t border-cardBorder/50 leading-relaxed">
+                                    Waxaan kuusoo dhiibaynaa ama kuusaaraynaa lacagtaada 24 saac oo bilaa hakad ah (24/7).
+                                </p>
+                            </details>
+
+                            <!-- FAQ 2 -->
+                            <details class="glass-card border border-cardBorder rounded-2xl p-3.5 group transition-all">
+                                <summary class="flex items-center justify-between font-bold text-xs cursor-pointer text-white list-none">
+                                    <span><i class="fa-solid fa-bolt text-brandOrange mr-2"></i> Mudo intee le'eg ayay qaadataa shaqadu?</span>
+                                    <i class="fa-solid fa-chevron-down text-gray-500 group-open:rotate-180 transition-transform text-xs"></i>
+                                </summary>
+                                <p class="text-xs text-gray-400 mt-2.5 pt-2 border-t border-cardBorder/50 leading-relaxed">
+                                    Sedex ilaa shanta daqiiqo (3 - 5 mins) gudahood ayaan kuugu dhameynaynaa oo lacagtaada ku soo dhaceysaa!
+                                </p>
+                            </details>
+
+                            <!-- FAQ 3 -->
+                            <details class="glass-card border border-cardBorder rounded-2xl p-3.5 group transition-all">
+                                <summary class="flex items-center justify-between font-bold text-xs cursor-pointer text-white list-none">
+                                    <span><i class="fa-solid fa-shield-halved text-brandGreen mr-2"></i> Ma tahay HUBAAL EXCHANGE mid aamin ah?</span>
+                                    <i class="fa-solid fa-chevron-down text-gray-500 group-open:rotate-180 transition-transform text-xs"></i>
+                                </summary>
+                                <p class="text-xs text-gray-400 mt-2.5 pt-2 border-t border-cardBorder/50 leading-relaxed">
+                                    Haa, waa Exchange rasmi ah oo Soomaaliyeed oo lagu kalsoonaan karo 100%. Xogtaada & Lacagtaada waa badbaado.
+                                </p>
+                            </details>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 3. SARIF PAGE -->
+            <section id="page-sarif" class="page">
+                <header class="p-5 border-b border-cardBorder/40 sticky top-0 glass-nav z-10">
+                    <h2 class="text-xl font-black">DOORO ADEEGGA</h2>
+                    <p class="text-xs text-gray-400">Dooro habka aad rabto inaad u shaqaysato</p>
+                </header>
+
+                <div class="p-5 space-y-4">
+                    <div onclick="navigateTo('deposit')" class="glass-card border border-cardBorder hover:border-brandBlue p-5 rounded-2xl cursor-pointer transition-all flex items-center justify-between group active:scale-98">
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-brandBlue uppercase tracking-wider">ADEEG 1</span>
+                            <h3 class="text-lg font-black text-white group-hover:text-brandBlue transition-colors">DEPOSIT</h3>
+                            <p class="text-xs text-gray-400">Lacag ku shubasho Account-ka 1xBet</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-gray-500 group-hover:text-brandBlue text-lg"></i>
+                    </div>
+
+                    <div onclick="navigateTo('withdrawal')" class="glass-card border border-cardBorder hover:border-brandOrange p-5 rounded-2xl cursor-pointer transition-all flex items-center justify-between group active:scale-98">
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-brandOrange uppercase tracking-wider">ADEEG 2</span>
+                            <h3 class="text-lg font-black text-white group-hover:text-brandOrange transition-colors">WITHDRAWAL</h3>
+                            <p class="text-xs text-gray-400">Lacag ka la bixid Account-ka 1xBet</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-gray-500 group-hover:text-brandOrange text-lg"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. DEPOSIT PAGE -->
+            <section id="page-deposit" class="page">
+                <header class="p-5 border-b border-cardBorder/40 flex items-center gap-3 sticky top-0 glass-nav z-10">
+                    <button onclick="navigateTo('home')" class="w-9 h-9 rounded-full glass-card flex items-center justify-center text-gray-300 border border-cardBorder active:scale-95">
+                        <i class="fa-solid fa-arrow-left text-sm"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-xl font-black">DEPOSIT</h2>
+                        <p class="text-xs text-gray-400">Dooro E-Dahab ama EVC Plus</p>
+                    </div>
+                </header>
+
+                <div class="p-5 space-y-5">
+                    <div class="grid grid-cols-2 gap-3">
+                        <button id="dep-btn-edahab" onclick="selectDepositMethod('EDAHAB')" class="p-4 rounded-2xl border text-center transition-all bg-brandOrange/10 border-brandOrange text-white shadow-glow-orange">
+                            <div class="text-xs font-bold text-gray-400 mb-1">E-DAHAB</div>
+                            <div class="text-sm font-black text-brandOrange">625024483</div>
+                        </button>
+                        <button id="dep-btn-evc" onclick="selectDepositMethod('EVC')" class="p-4 rounded-2xl border text-center transition-all glass-card border-cardBorder text-gray-400">
+                            <div class="text-xs font-bold text-gray-400 mb-1">EVC PLUS</div>
+                            <div class="text-sm font-black text-white">619843335</div>
+                        </button>
+                    </div>
+
+                    <div class="glass-card border border-cardBorder p-4 rounded-2xl flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-gray-400 block">Ku dir lacagta nambarkan:</span>
+                            <span id="deposit-target-num" class="text-base font-black text-brandOrange">625024483</span>
+                        </div>
+                        <button onclick="copyCurrentDepositNumber()" class="bg-cardBorder hover:bg-gray-700 text-white text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 font-bold active:scale-95">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                    </div>
+
+                    <form id="deposit-form" onsubmit="submitDeposit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs text-gray-400 font-bold mb-1.5">Number-ka aad lacagta ka dirtay *</label>
+                            <input type="number" id="dep-sender" placeholder="61XXXXXXX ama 62XXXXXXX" class="w-full bg-cardDark border border-cardBorder rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-brandBlue transition-colors" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-gray-400 font-bold mb-1.5">Lacagta aad soo dirtay ($) *</label>
+                            <input type="number" step="any" id="dep-amount" placeholder="Tusaale: 10" class="w-full bg-cardDark border border-cardBorder rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-brandBlue transition-colors" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-gray-400 font-bold mb-1.5">Transaction ID / Muuqaalka fariinta *</label>
+                            <input type="text" id="dep-txid" placeholder="Geli TxID ama koodhka fariinta" class="w-full bg-cardDark border border-cardBorder rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-brandBlue transition-colors" required>
+                        </div>
+
+                        <div class="glass-card border border-cardBorder p-4 rounded-2xl space-y-2 text-xs">
+                            <div class="text-gray-400 font-bold border-b border-cardBorder/50 pb-2 mb-2 uppercase tracking-wider">Xogta Codsiga (Summary)</div>
+                            <div class="flex justify-between"><span class="text-gray-400">Habka:</span><span id="sum-dep-method" class="font-bold text-white">E-Dahab</span></div>
+                            <div class="flex justify-between"><span class="text-gray-400">Nambarka HBS:</span><span id="sum-dep-target" class="font-bold text-white">625024483</span></div>
+                        </div>
+
+                        <button type="submit" class="btn-shine w-full bg-brandGreen hover:bg-emerald-600 text-white font-black py-4 rounded-2xl flex items-center justify-center shadow-glow-green transition-all text-sm uppercase tracking-wider active:scale-98">
+                            GUJI & DIR WHATSAPP
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- 5. WITHDRAWAL PAGE -->
+            <section id="page-withdrawal" class="page">
+                <header class="p-5 border-b border-cardBorder/40 flex items-center gap-3 sticky top-0 glass-nav z-10">
+                    <button onclick="navigateTo('home')" class="w-9 h-9 rounded-full glass-card flex items-center justify-center text-gray-300 border border-cardBorder active:scale-95">
+                        <i class="fa-solid fa-arrow-left text-sm"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-xl font-black">WITHDRAWAL</h2>
+                        <p class="text-xs text-gray-400">Kala bax lacagtaada 1xBet</p>
+                    </div>
+                </header>
+
+                <div class="p-5 space-y-5">
+                    <form id="withdrawal-form" onsubmit="submitWithdrawal(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs text-gray-400 font-bold mb-1.5">1xBet Account ID *</label>
+                            <input type="number" id="wd-xbetid" placeholder="Geli ID-gaaga 1xBet" class="w-full bg-cardDark border border-cardBorder rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-brandOrange transition-colors" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-gray-400 font-bold mb-1.5">Lacagta aad la baxayso ($) *</label>
+                            <input type="number" step="any" id="wd-amount" placeholder="Tusaale: 25" class="w-full bg-cardDark border border-cardBorder rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-brandOrange transition-colors" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-gray-400 font-bold mb-1.5">Withdrawal Code *</label>
+                            <input type="text" id="wd-code" placeholder="Tusaale: cgKW" class="w-full bg-cardDark border border-cardBorder rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-brandOrange transition-colors" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-gray-400 font-bold mb-1.5">Nambarka Lacagta laguugu soo dirayo *</label>
+                            <input type="number" id="wd-phone" placeholder="61XXXXXXX ama 62XXXXXXX" class="w-full bg-cardDark border border-cardBorder rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-brandOrange transition-colors" required>
+                        </div>
+
+                        <button type="submit" class="btn-shine w-full bg-brandGreen hover:bg-emerald-600 text-white font-black py-4 rounded-2xl flex items-center justify-center shadow-glow-green transition-all text-sm uppercase tracking-wider mt-4 active:scale-98">
+                            GUJI & DIR WHATSAPP
+                        </button>
+                    </form>
+
+                    <!-- OGEYSIIS WITHDRAWAL (NOTICE CARD) -->
+                    <div class="glass-card border border-brandOrange/30 p-4 rounded-2xl space-y-2.5 shadow-glow-orange">
+                        <div class="flex items-center gap-2 text-brandOrange font-bold text-xs uppercase tracking-wider border-b border-cardBorder/50 pb-2">
+                            <i class="fa-solid fa-bell animate-bounce"></i> OGEYSIIS SARIFKA WITHDRAWAL
+                        </div>
+                        <ul class="space-y-1.5 text-xs text-gray-300">
+                            <li class="flex items-center justify-between">
+                                <span class="text-gray-400">• Minimum withdrawal:</span>
+                                <span class="font-extrabold text-brandGreen">$1.50</span>
+                            </li>
+                            <li class="flex items-center justify-between">
+                                <span class="text-gray-400">• Magaalada:</span>
+                                <span class="font-bold text-white">Mogadishu</span>
+                            </li>
+                            <li class="flex items-center justify-between">
+                                <span class="text-gray-400">• Street:</span>
+                                <span class="font-bold text-brandOrange">Akram (23/7) (24/7)</span>
+                            </li>
+                            <li class="flex items-center justify-between border-t border-cardBorder/30 pt-1.5">
+                                <span class="text-gray-400">• Sariflaha:</span>
+                                <span class="font-bold text-brandBlue">HUBAAL EXCHANGE</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. HISTORY PAGE -->
+            <section id="page-history" class="page">
+                <header class="p-5 border-b border-cardBorder/40 sticky top-0 glass-nav z-10 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-black">TRANSACTION HISTORY</h2>
+                        <p class="text-xs text-gray-400">Codsiyadii u dambeeyay</p>
+                    </div>
+                    <button onclick="renderHistory()" class="text-brandOrange text-xs font-bold flex items-center gap-1.5 bg-brandOrange/10 px-3 py-1.5 rounded-xl border border-brandOrange/20 active:scale-95">
+                        <i class="fa-solid fa-rotate-right"></i> Refresh
+                    </button>
+                </header>
+
+                <div class="p-5 space-y-3" id="history-list"></div>
+            </section>
+
+            <!-- 7. TRANSACTION DETAILS -->
+            <section id="page-tx-details" class="page">
+                <header class="p-5 border-b border-cardBorder/40 flex items-center gap-3 sticky top-0 glass-nav z-10">
+                    <button onclick="navigateTo('history')" class="w-9 h-9 rounded-full glass-card flex items-center justify-center text-gray-300 border border-cardBorder active:scale-95">
+                        <i class="fa-solid fa-arrow-left text-sm"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-xl font-black">FAHFAAHIN BUUXDA</h2>
+                        <p class="text-xs text-gray-400" id="detail-header-id">ID: HB-00000</p>
+                    </div>
+                </header>
+
+                <div class="p-5">
+                    <div class="glass-card border border-cardBorder p-5 rounded-3xl space-y-4" id="tx-details-content"></div>
+                </div>
+            </section>
+
+            <!-- 8. MORE PAGE -->
+            <section id="page-more" class="page">
+                <header class="p-5 border-b border-cardBorder/40 sticky top-0 glass-nav z-10">
+                    <h2 class="text-xl font-black">SETTINGS & MORE</h2>
+                    <p class="text-xs text-gray-400">Maamulka & Caawimaadda</p>
+                </header>
+
+                <div class="p-5 space-y-3">
+                    <button onclick="navigateTo('profile')" class="w-full glass-card border border-cardBorder p-4 rounded-2xl flex items-center justify-between hover:bg-cardBorder/30 transition-all active:scale-98">
+                        <div class="flex items-center gap-3.5">
+                            <i class="fa-regular fa-user text-brandBlue text-lg"></i>
+                            <span class="text-sm font-bold">Profile-kaaga</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-500"></i>
+                    </button>
+
+                    <button onclick="navigateTo('history')" class="w-full glass-card border border-cardBorder p-4 rounded-2xl flex items-center justify-between hover:bg-cardBorder/30 transition-all active:scale-98">
+                        <div class="flex items-center gap-3.5">
+                            <i class="fa-solid fa-clock-rotate-left text-brandOrange text-lg"></i>
+                            <span class="text-sm font-bold">Transaction History</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-500"></i>
+                    </button>
+
+                    <button onclick="openWhatsAppSupport()" class="w-full glass-card border border-cardBorder p-4 rounded-2xl flex items-center justify-between hover:bg-cardBorder/30 transition-all active:scale-98">
+                        <div class="flex items-center gap-3.5">
+                            <i class="fa-brands fa-whatsapp text-brandGreen text-lg"></i>
+                            <span class="text-sm font-bold">WhatsApp Support 24/7</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-500"></i>
+                    </button>
+
+                    <a href="https://t.me/Hubaalsportts" target="_blank" class="w-full glass-card border border-cardBorder p-4 rounded-2xl flex items-center justify-between hover:bg-cardBorder/30 transition-all block active:scale-98">
+                        <div class="flex items-center gap-3.5">
+                            <i class="fa-brands fa-telegram text-sky-400 text-lg"></i>
+                            <span class="text-sm font-bold">Telegram Official Channel</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-500"></i>
+                    </a>
+
+                    <div class="w-full glass-card border border-cardBorder p-4 rounded-2xl flex items-center justify-between">
+                        <div class="flex items-center gap-3.5">
+                            <i class="fa-solid fa-tag text-brandOrange text-lg"></i>
+                            <div>
+                                <span class="text-sm font-bold block">Promo Code</span>
+                                <span class="text-xs text-gray-400">HUBAAL1</span>
+                            </div>
+                        </div>
+                        <button onclick="copyToClipboard('HUBAAL1', 'Promo Code')" class="bg-brandOrange/20 text-brandOrange text-xs px-3 py-1.5 rounded-xl font-bold active:scale-95">Copy</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. PROFILE PAGE -->
+            <section id="page-profile" class="page">
+                <header class="p-5 border-b border-cardBorder/40 flex items-center gap-3 sticky top-0 glass-nav z-10">
+                    <button onclick="navigateTo('more')" class="w-9 h-9 rounded-full glass-card flex items-center justify-center text-gray-300 border border-cardBorder active:scale-95">
+                        <i class="fa-solid fa-arrow-left text-sm"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-xl font-black">PROFILE</h2>
+                        <p class="text-xs text-gray-400">Macluumaadkaaga</p>
+                    </div>
+                </header>
+
+                <div class="p-5 space-y-4">
+                    <div class="glass-card border border-cardBorder p-6 rounded-3xl flex flex-col items-center text-center">
+                        <div class="w-20 h-20 bg-brandBlue/20 border-2 border-brandBlue rounded-full flex items-center justify-center mb-3 text-brandBlue text-2xl font-black shadow-glow-blue">
+                            HE
+                        </div>
+                        <h3 class="text-lg font-black">HUBAAL USER</h3>
+                        <p class="text-xs text-gray-400">+252 61 9843335</p>
+                    </div>
+
+                    <div class="glass-card border border-cardBorder p-5 rounded-3xl space-y-3.5 text-xs">
+                        <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                            <span class="text-gray-400">Magaca App-ka:</span>
+                            <span class="font-bold text-white">HUBAAL EXCHANGE</span>
+                        </div>
+                        <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                            <span class="text-gray-400">WhatsApp Official:</span>
+                            <span class="font-bold text-brandGreen">+252 61 9843335</span>
+                        </div>
+                        <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                            <span class="text-gray-400">E-Dahab Official:</span>
+                            <span class="font-bold text-brandOrange">625024483</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">EVC Plus Official:</span>
+                            <span class="font-bold text-brandBlue">619843335</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- 10. BOTTOM NAVIGATION BAR -->
+        <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md glass-nav border-t border-cardBorder/50 z-40 flex justify-around py-3 px-2">
+            <button id="nav-home" onclick="navigateTo('home')" class="flex flex-col items-center gap-1 text-brandBlue font-bold transition-all">
+                <i class="fa-solid fa-house text-lg"></i>
+                <span class="text-[10px] uppercase tracking-wider">HOME</span>
+            </button>
+
+            <button id="nav-sarif" onclick="navigateTo('sarif')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-all">
+                <i class="fa-solid fa-right-left text-lg"></i>
+                <span class="text-[10px] uppercase tracking-wider">SARIF</span>
+            </button>
+
+            <button id="nav-history" onclick="navigateTo('history')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-all">
+                <i class="fa-solid fa-clock-rotate-left text-lg"></i>
+                <span class="text-[10px] uppercase tracking-wider">HISTORY</span>
+            </button>
+
+            <button id="nav-more" onclick="navigateTo('more')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-all">
+                <i class="fa-solid fa-bars text-lg"></i>
+                <span class="text-[10px] uppercase tracking-wider">MORE</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <!-- JAVASCRIPT ENGINE -->
+    <script>
+        const BRAND = {
+            NAME: "HUBAAL EXCHANGE",
+            PROMO: "HUBAAL1",
+            WHATSAPP: "+252619843335",
+            TELEGRAM: "https://t.me/Hubaalsportts",
+            EDAHAB: "625024483",
+            EVC: "619843335"
+        };
+
+        let selectedDepositMethod = 'EDAHAB';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Splash Animation Transition
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                splash.style.transition = 'opacity 0.4s ease';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    navigateTo('home');
+                }, 400);
+            }, 2000);
+
+            // Mock initial history if empty
+            if (!localStorage.getItem('hubaal_transactions')) {
+                const mockData = [
+                    {
+                        id: 'HB-90821',
+                        type: 'WITHDRAWAL',
+                        amount: '50',
+                        date: 'Khadka Tooska ah',
+                        status: 'Completed',
+                        details: { xbetId: '882310192', code: 'cgKW', phone: '619843335' }
+                    },
+                    {
+                        id: 'HB-90820',
+                        type: 'DEPOSIT',
+                        amount: '15',
+                        method: 'EVC Plus',
+                        date: 'Hadda',
+                        status: 'Processing',
+                        details: { targetNum: BRAND.EVC, senderNum: '615554433', txId: 'TX9982310' }
+                    }
+                ];
+                localStorage.setItem('hubaal_transactions', JSON.stringify(mockData));
+            }
+
+            renderHistory();
+        });
+
+        function navigateTo(pageId) {
+            const pages = ['home', 'sarif', 'deposit', 'withdrawal', 'history', 'tx-details', 'more', 'profile'];
+            pages.forEach(p => {
+                const pageEl = document.getElementById(`page-${p}`);
+                if (pageEl) pageEl.classList.remove('active');
+            });
+
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+
+            // Navigation Active Highlight
+            const navItems = ['home', 'sarif', 'history', 'more'];
+            navItems.forEach(nav => {
+                const navBtn = document.getElementById(`nav-${nav}`);
+                if (navBtn) {
+                    if (nav === pageId || (pageId === 'deposit' && nav === 'sarif') || (pageId === 'withdrawal' && nav === 'sarif') || (pageId === 'profile' && nav === 'more')) {
+                        navBtn.className = "flex flex-col items-center gap-1 text-brandBlue font-bold transition-all";
+                    } else {
+                        navBtn.className = "flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-all";
+                    }
+                }
+            });
+
+            if (pageId === 'history') {
+                renderHistory();
+            }
+        }
+
+        function copyToClipboard(text, label) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(`${label} - Loo Koobiyeeyay!`);
+            }).catch(() => {
+                showToast(`Loo Koobiyeeyay!`);
+            });
+        }
+
+        function copyCurrentDepositNumber() {
+            const num = selectedDepositMethod === 'EDAHAB' ? BRAND.EDAHAB : BRAND.EVC;
+            copyToClipboard(num, selectedDepositMethod);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2500);
+        }
+
+        function selectDepositMethod(method) {
+            selectedDepositMethod = method;
+            const edahabBtn = document.getElementById('dep-btn-edahab');
+            const evcBtn = document.getElementById('dep-btn-evc');
+            const targetText = document.getElementById('deposit-target-num');
+            const sumMethod = document.getElementById('sum-dep-method');
+            const sumTarget = document.getElementById('sum-dep-target');
+
+            if (method === 'EDAHAB') {
+                edahabBtn.className = "p-4 rounded-2xl border text-center transition-all bg-brandOrange/10 border-brandOrange text-white shadow-glow-orange";
+                evcBtn.className = "p-4 rounded-2xl border text-center transition-all glass-card border-cardBorder text-gray-400";
+                targetText.className = "text-base font-black text-brandOrange";
+                targetText.innerText = BRAND.EDAHAB;
+                sumMethod.innerText = "E-Dahab";
+                sumTarget.innerText = BRAND.EDAHAB;
+            } else {
+                evcBtn.className = "p-4 rounded-2xl border text-center transition-all bg-brandBlue/10 border-brandBlue text-white shadow-glow-blue";
+                edahabBtn.className = "p-4 rounded-2xl border text-center transition-all glass-card border-cardBorder text-gray-400";
+                targetText.className = "text-base font-black text-brandBlue";
+                targetText.innerText = BRAND.EVC;
+                sumMethod.innerText = "EVC Plus";
+                sumTarget.innerText = BRAND.EVC;
+            }
+        }
+
+        function submitDeposit(e) {
+            e.preventDefault();
+            const sender = document.getElementById('dep-sender').value.trim();
+            const amount = document.getElementById('dep-amount').value.trim();
+            const txid = document.getElementById('dep-txid').value.trim();
+
+            if (!sender || !amount || !txid) {
+                showToast("Fadlan buuxi dhammaan xogta qasabka ah.");
+                return;
+            }
+
+            const methodLabel = selectedDepositMethod === 'EDAHAB' ? 'E-Dahab' : 'EVC Plus';
+            const targetNum = selectedDepositMethod === 'EDAHAB' ? BRAND.EDAHAB : BRAND.EVC;
+
+            const waMessage = 
+`HUBAAL DEPOSIT
+
+Habka lacagta: ${methodLabel}
+Nambarka HBS: ${targetNum}
+Nambarka laga soo diray: ${sender}
+Lacagta: $${amount}
+Transaction ID: ${txid}
+
+HUBAAL EXCHANGE`;
+
+            const reqId = 'HB-' + Math.floor(10000 + Math.random() * 90000);
+            const newTx = {
+                id: reqId,
+                type: 'DEPOSIT',
+                amount: amount,
+                method: methodLabel,
+                date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                status: 'Processing',
+                details: { targetNum: targetNum, senderNum: sender, txId: txid }
+            };
+            saveTransaction(newTx);
+
+            showToast("Codsigaaga waa la duubay, mar dhow ayaa laguu furayaa WhatsApp...");
+
+            setTimeout(() => {
+                const url = `https://wa.me/${BRAND.WHATSAPP.replace('+', '')}?text=${encodeURIComponent(waMessage)}`;
+                window.open(url, '_blank');
+                document.getElementById('deposit-form').reset();
+                navigateTo('history');
+            }, 800);
+        }
+
+        function submitWithdrawal(e) {
+            e.preventDefault();
+            const xbetid = document.getElementById('wd-xbetid').value.trim();
+            const amount = document.getElementById('wd-amount').value.trim();
+            const code = document.getElementById('wd-code').value.trim();
+            const phone = document.getElementById('wd-phone').value.trim();
+
+            if (!xbetid || !amount || !code || !phone) {
+                showToast("Fadlan buuxi dhammaan xogta qasabka ah.");
+                return;
+            }
+
+            const waMessage = 
+`HUBAAL WITHDRAWAL
+
+1xBet ID: ${xbetid}
+Lacagta: $${amount}
+Withdrawal Code: ${code}
+Number-ka lacagta: ${phone}
+
+HUBAAL EXCHANGE`;
+
+            const reqId = 'HB-' + Math.floor(10000 + Math.random() * 90000);
+            const newTx = {
+                id: reqId,
+                type: 'WITHDRAWAL',
+                amount: amount,
+                date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                status: 'Processing',
+                details: { xbetId: xbetid, code: code, phone: phone }
+            };
+            saveTransaction(newTx);
+
+            showToast("Codsigaaga waa la duubay, mar dhow ayaa laguu furayaa WhatsApp...");
+
+            setTimeout(() => {
+                const url = `https://wa.me/${BRAND.WHATSAPP.replace('+', '')}?text=${encodeURIComponent(waMessage)}`;
+                window.open(url, '_blank');
+                document.getElementById('withdrawal-form').reset();
+                navigateTo('history');
+            }, 800);
+        }
+
+        function saveTransaction(tx) {
+            const list = JSON.parse(localStorage.getItem('hubaal_transactions') || '[]');
+            list.unshift(tx);
+            localStorage.setItem('hubaal_transactions', JSON.stringify(list));
+        }
+
+        function renderHistory() {
+            const container = document.getElementById('history-list');
+            const list = JSON.parse(localStorage.getItem('hubaal_transactions') || '[]');
+
+            if (list.length === 0) {
+                container.innerHTML = `<div class="text-center py-12 text-gray-500 text-xs">Wax codsiyo ah oo hore ma jiraan.</div>`;
+                return;
+            }
+
+            container.innerHTML = list.map((item, index) => {
+                let statusColor = 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20';
+                if (item.status === 'Processing') statusColor = 'bg-blue-500/10 text-blue-400 border-blue-500/20 shadow-glow-blue';
+                if (item.status === 'Completed') statusColor = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-glow-green';
+
+                return `
+                <div onclick="openTxDetail(${index})" class="glass-card border border-cardBorder hover:border-brandBlue p-4 rounded-2xl flex items-center justify-between cursor-pointer transition-all active:scale-98">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-black text-white">${item.id}</span>
+                            <span class="text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full border ${statusColor}">${item.status}</span>
+                        </div>
+                        <div class="text-xs text-gray-400 flex items-center gap-2">
+                            <span class="font-bold ${item.type === 'DEPOSIT' ? 'text-brandBlue' : 'text-brandOrange'}">${item.type}</span>
+                            <span>•</span>
+                            <span class="text-white font-bold">$${item.amount}</span>
+                            ${item.method ? `<span>• ${item.method}</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="text-right flex items-center gap-2">
+                        <span class="text-[11px] text-gray-500">${item.date}</span>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-500"></i>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function openTxDetail(index) {
+            const list = JSON.parse(localStorage.getItem('hubaal_transactions') || '[]');
+            const item = list[index];
+            if (!item) return;
+
+            document.getElementById('detail-header-id').innerText = `ID: ${item.id}`;
+            const container = document.getElementById('tx-details-content');
+
+            let statusColor = 'text-yellow-500';
+            if (item.status === 'Processing') statusColor = 'text-blue-400';
+            if (item.status === 'Completed') statusColor = 'text-emerald-400';
+
+            let detailsHTML = `
+                <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                    <span class="text-xs text-gray-400">Transaction ID:</span>
+                    <span class="text-xs font-bold text-white">${item.id}</span>
+                </div>
+                <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                    <span class="text-xs text-gray-400">Nooca Codsiga:</span>
+                    <span class="text-xs font-bold text-brandBlue">${item.type}</span>
+                </div>
+            `;
+
+            if (item.type === 'DEPOSIT') {
+                detailsHTML += `
+                <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                    <span class="text-xs text-gray-400">Habka Lacagta:</span>
+                    <span class="text-xs font-bold text-white">${item.method || 'EVC Plus'}</span>
+                </div>
+                <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                    <span class="text-xs text-gray-400">Number-ka Soo Diray:</span>
+                    <span class="text-xs font-bold text-white">${item.details.senderNum}</span>
+                </div>
+                <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                    <span class="text-xs text-gray-400">TxID/Fariinta:</span>
+                    <span class="text-xs font-bold text-white">${item.details.txId}</span>
+                </div>
+                `;
+            } else {
+                detailsHTML += `
+                <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                    <span class="text-xs text-gray-400">1xBet ID:</span>
+                    <span class="text-xs font-bold text-white">${item.details.xbetId}</span>
+                </div>
+                <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                    <span class="text-xs text-gray-400">Withdrawal Code:</span>
+                    <span class="text-xs font-bold text-white">${item.details.code}</span>
+                </div>
+                <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                    <span class="text-xs text-gray-400">Nambarka Lacagta:</span>
+                    <span class="text-xs font-bold text-white">${item.details.phone}</span>
+                </div>
+                `;
+            }
+
+            detailsHTML += `
+                <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                    <span class="text-xs text-gray-400">Lacagta:</span>
+                    <span class="text-xs font-extrabold text-white">$${item.amount}</span>
+                </div>
+                <div class="flex justify-between border-b border-cardBorder/50 pb-2.5">
+                    <span class="text-xs text-gray-400">Waqtiga:</span>
+                    <span class="text-xs font-bold text-white">${item.date}</span>
+                </div>
+                <div class="flex justify-between pt-1">
+                    <span class="text-xs text-gray-400">Status-ka:</span>
+                    <span class="text-xs font-black uppercase ${statusColor}">${item.status}</span>
+                </div>
+            `;
+
+            container.innerHTML = detailsHTML;
+            navigateTo('tx-details');
+        }
+
+        function openWhatsAppSupport() {
+            const msg = encodeURIComponent("Asc HUBAAL EXCHANGE, waxaan u baahanahay caawimaad.");
+            window.open(`https://wa.me/${BRAND.WHATSAPP.replace('+', '')}?text=${msg}`, '_blank');
+        }
+    </script>
+</body>
+</html>
